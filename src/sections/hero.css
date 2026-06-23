@@ -1,0 +1,494 @@
+/* =====================================================================
+   LONG CINEMATIC HERO
+   .hero is the scroll-length wrapper (700vh). .hero__stage is pinned at
+   100dvh and holds the WebGL scene + HUD + phase overlays.
+   ===================================================================== */
+.hero {
+  position: relative;
+  height: 700vh;
+  background: var(--c-void);
+}
+.hero__stage {
+  position: relative;
+  top: 0;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+  will-change: filter, opacity, clip-path;
+}
+
+/* 3D / fallback layer */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-canvas);
+}
+.hero__canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* CSS fallback (no WebGL) */
+.hero__fallback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, #0c0e1a, var(--c-void) 70%);
+  overflow: hidden;
+}
+.hero__fallback-radar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60vmin;
+  height: 60vmin;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: conic-gradient(
+    from 0deg,
+    transparent 300deg,
+    rgba(255, 43, 214, 0.35) 360deg
+  );
+  animation: heroRadar 4s linear infinite;
+}
+@keyframes heroRadar {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* =====================================================================
+   HUD FRAME
+   ===================================================================== */
+.hud {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.hud__corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  opacity: 0.6;
+}
+.hud__corner.tl {
+  top: 90px;
+  left: 26px;
+  border-left: 1px solid var(--c-cyan);
+  border-top: 1px solid var(--c-cyan);
+}
+.hud__corner.tr {
+  top: 90px;
+  right: 26px;
+  border-right: 1px solid var(--c-cyan);
+  border-top: 1px solid var(--c-cyan);
+}
+.hud__corner.bl {
+  bottom: 26px;
+  left: 26px;
+  border-left: 1px solid var(--c-cyan);
+  border-bottom: 1px solid var(--c-cyan);
+}
+.hud__corner.br {
+  bottom: 26px;
+  right: 26px;
+  border-right: 1px solid var(--c-cyan);
+  border-bottom: 1px solid var(--c-cyan);
+}
+.hud__crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+.hud__crosshair.v {
+  width: 1px;
+  height: 40px;
+  translate: -50% -50%;
+}
+.hud__crosshair.h {
+  width: 40px;
+  height: 1px;
+  translate: -50% -50%;
+}
+.hud__top {
+  position: absolute;
+  top: 92px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: clamp(3.5rem, 8vw, 6rem);
+  color: var(--c-cyan);
+}
+.hud__tel {
+  position: absolute;
+  bottom: 30px;
+  left: clamp(3.5rem, 8vw, 6rem);
+  display: flex;
+  gap: var(--s-5);
+  color: var(--text-dim);
+}
+.hud__num {
+  color: var(--c-magenta-soft);
+  margin-left: 6px;
+}
+.hladder {
+  position: absolute;
+  right: clamp(1.4rem, 4vw, 3rem);
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hladder__tick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.35;
+  transition: opacity var(--t-mid) var(--ease-out);
+}
+.hladder__tick::after {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--text-dim);
+}
+.hladder__tick.is-active {
+  opacity: 1;
+}
+.hladder__tick.is-active::after {
+  width: 30px;
+  background: var(--c-magenta);
+  box-shadow: var(--glow-magenta);
+}
+.hladder__no {
+  color: inherit;
+}
+
+/* =====================================================================
+   VEHICLE HUD LABELS (survey phase)
+   ===================================================================== */
+.vhud {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+}
+.vhud__tag {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: rgba(8, 10, 18, 0.5);
+  backdrop-filter: blur(4px);
+}
+.vhud__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-cyan);
+  box-shadow: var(--glow-cyan);
+}
+.vhud__val {
+  color: var(--c-magenta-soft);
+}
+.vhud__tag--0 {
+  top: 26%;
+  left: 16%;
+}
+.vhud__tag--1 {
+  top: 44%;
+  right: 14%;
+}
+.vhud__tag--2 {
+  bottom: 30%;
+  left: 20%;
+}
+.vhud__tag--3 {
+  bottom: 22%;
+  right: 18%;
+}
+
+/* =====================================================================
+   PHASE COPY
+   ===================================================================== */
+.hero__copy {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+/* Copy is placed off-center per phase so the 3D scene stays the hero.
+   Default: lower-left, left-aligned. Per-phase modifiers reposition. */
+.hphase {
+  position: absolute;
+  left: clamp(1.25rem, 6vw, 7rem);
+  bottom: clamp(3.5rem, 14vh, 8rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-3);
+  text-align: left;
+  max-width: min(34ch, 84vw);
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+/* soft scrim hugging the text box only (does not darken the whole center) */
+.hphase::before {
+  content: "";
+  position: absolute;
+  inset: -26% -24% -26% -16%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 32% 50%,
+    rgba(5, 6, 10, 0.85) 0%,
+    rgba(5, 6, 10, 0.5) 48%,
+    rgba(5, 6, 10, 0) 76%
+  );
+  pointer-events: none;
+}
+.hphase .eyebrow,
+.hphase h1,
+.hphase .lead {
+  text-shadow: var(--shadow-text);
+}
+.hphase h1,
+.hphase .lead {
+  max-width: 100%;
+}
+.hphase .lead {
+  color: var(--c-chrome);
+}
+.hero__hint {
+  margin-top: var(--s-3);
+  color: var(--text-faint);
+  letter-spacing: var(--track-wide);
+}
+
+/* per-phase placement */
+.hphase--boot {
+  bottom: clamp(3rem, 12vh, 7rem);
+  max-width: min(22ch, 84vw);
+}
+.hphase--approach {
+  top: 36%;
+  bottom: auto;
+}
+.hphase--flyby {
+  top: 30%;
+  bottom: auto;
+  left: auto;
+  right: clamp(1.25rem, 6vw, 7rem);
+  align-items: flex-end;
+  text-align: right;
+}
+.hphase--flyby::before {
+  inset: -26% -16% -26% -24%;
+  background: radial-gradient(
+    ellipse at 68% 50%,
+    rgba(5, 6, 10, 0.85) 0%,
+    rgba(5, 6, 10, 0.5) 48%,
+    rgba(5, 6, 10, 0) 76%
+  );
+}
+.hphase--mission {
+  top: 28%;
+  bottom: auto;
+  max-width: min(40ch, 86vw);
+}
+.hphase--orbit,
+.hphase--pullback {
+  bottom: clamp(3.5rem, 15vh, 8rem);
+}
+
+/* =====================================================================
+   CAPABILITY CARDS (phase 6)
+   ===================================================================== */
+.hcards {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(2.5rem, 7vh, 4.5rem);
+  top: auto;
+  translate: -50% 0;
+  width: min(1100px, 94vw);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  z-index: 4;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.hcards__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-2);
+  text-align: left;
+}
+.hcards__head .eyebrow,
+.hcards__head h2 {
+  text-shadow: var(--shadow-text);
+}
+.hcards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+}
+.hcard {
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  text-align: left;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+.hcard__no {
+  color: var(--c-magenta-soft);
+  font-size: 1.1rem;
+}
+.hcard__tag {
+  color: var(--c-cyan);
+}
+.hcard h3 {
+  margin-top: var(--s-2);
+}
+
+/* =====================================================================
+   CTA (phase 7)
+   ===================================================================== */
+.hero__cta {
+  position: absolute;
+  left: clamp(1.25rem, 6vw, 7rem);
+  bottom: clamp(3.5rem, 14vh, 8rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+  z-index: 5;
+  max-width: min(34ch, 86vw);
+  opacity: 0;
+  visibility: hidden;
+  text-align: left;
+  pointer-events: auto;
+}
+.hero__cta::before {
+  content: "";
+  position: absolute;
+  inset: -30% -24% -30% -16%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at 32% 50%,
+    rgba(5, 6, 10, 0.88) 0%,
+    rgba(5, 6, 10, 0.5) 50%,
+    rgba(5, 6, 10, 0) 78%
+  );
+  pointer-events: none;
+}
+.hero__cta .eyebrow,
+.hero__cta h2 {
+  text-shadow: var(--shadow-text);
+}
+.hero__cta .row {
+  justify-content: flex-start;
+}
+
+/* =====================================================================
+   STATIC (reduced-motion) MODE
+   ===================================================================== */
+.hero--static {
+  height: auto;
+}
+.hero--static .hero__stage {
+  position: relative;
+  height: 64vh;
+}
+.hero--static .hero__copy,
+.hero--static .hcards,
+.hero--static .hero__cta,
+.hero--static .hladder {
+  display: none;
+}
+.hero__static-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  align-items: flex-start;
+  padding-block: var(--s-7);
+  max-width: 70ch;
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 900px) {
+  .hcards {
+    width: min(440px, 90vw);
+    gap: var(--s-3);
+  }
+  .hcards__grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+  .hcard {
+    padding: var(--s-3) var(--s-4);
+  }
+  .hcard p {
+    font-size: 0.85rem;
+  }
+  .vhud__tag {
+    transform: scale(0.82);
+  }
+  .hud__tel {
+    gap: var(--s-3);
+  }
+}
+/* On narrow screens, anchor all copy to the lower-left and reset side/flyby
+   placement so nothing runs off the edge. */
+@media (max-width: 760px) {
+  .hphase,
+  .hphase--approach,
+  .hphase--flyby,
+  .hphase--mission,
+  .hphase--orbit,
+  .hphase--pullback {
+    left: clamp(1.1rem, 5vw, 2rem);
+    right: auto;
+    top: auto;
+    bottom: clamp(6rem, 16vh, 9rem);
+    align-items: flex-start;
+    text-align: left;
+    max-width: 88vw;
+  }
+  .hphase--flyby::before {
+    inset: -26% -24% -26% -16%;
+    background: radial-gradient(
+      ellipse at 32% 50%,
+      rgba(5, 6, 10, 0.85) 0%,
+      rgba(5, 6, 10, 0.5) 48%,
+      rgba(5, 6, 10, 0) 76%
+    );
+  }
+  .hero__cta {
+    left: clamp(1.1rem, 5vw, 2rem);
+    max-width: 88vw;
+  }
+}
+@media (max-width: 560px) {
+  .hphase .lead {
+    font-size: 1rem;
+  }
+  .hladder {
+    display: none;
+  }
+}

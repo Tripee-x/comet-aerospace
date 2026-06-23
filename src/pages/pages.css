@@ -1,0 +1,452 @@
+/* =====================================================================
+   SUB-PAGE STYLES (Products / Services / Contact)
+   ===================================================================== */
+.page {
+  padding-top: 72px; /* clear fixed nav */
+}
+
+/* ---- shared page header ---- */
+.pagehead {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4rem, 12vh, 8rem) var(--s-7);
+  border-bottom: 1px solid var(--line);
+}
+.pagehead__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-width: 60ch;
+}
+.pagehead__note {
+  margin-top: var(--s-2);
+  color: var(--text-faint);
+  max-width: 60ch;
+  line-height: 1.7;
+}
+
+/* =====================================================================
+   PRODUCTS PAGE
+   ===================================================================== */
+.prodpage .prodrow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 7vh, 5rem);
+  border-bottom: 1px solid var(--line);
+}
+.prodrow--rev .prodrow__viz {
+  order: 2;
+}
+.prodrow__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.prodrow__kicker {
+  color: var(--c-cyan);
+}
+.prodrow__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+.tag {
+  padding: 5px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  color: var(--text-dim);
+}
+
+/* procedural product visual */
+.prodrow__viz {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--acc) 16%, transparent), transparent 62%), linear-gradient(180deg, #0a0c16, #06070d);
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+}
+.prodrow__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 55%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 55%, #000 30%, transparent 75%);
+  opacity: 0.5;
+}
+.prodrow__core {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff, var(--acc) 60%);
+  box-shadow: 0 0 40px var(--acc), 0 0 100px var(--acc);
+}
+.prodrow__ring {
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--acc) 45%, transparent);
+  border-radius: 50%;
+}
+.prodrow__ring.r1 {
+  width: 180px;
+  height: 180px;
+  border-top-color: var(--acc);
+  animation: prodspin 9s linear infinite;
+}
+.prodrow__ring.r2 {
+  width: 250px;
+  height: 250px;
+  border-left-color: var(--c-cyan);
+  animation: prodspin 14s linear infinite reverse;
+}
+.prodrow__code {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  color: var(--acc);
+}
+
+.prodpage__cta {
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.prodpage__cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+/* ---- metric strip (animated counters) ---- */
+.metricstrip {
+  border-block: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(13, 17, 27, 0.4), transparent);
+}
+.metricstrip__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-4);
+  padding-block: var(--s-6);
+}
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: var(--s-3);
+  border-left: 1px solid var(--line-strong);
+}
+.metric__v {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+}
+
+/* ---- interactive platform selector ---- */
+.selector__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-6);
+}
+.selector__body {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start;
+}
+.selector__tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.seltab {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "no name" "no kick";
+  gap: 0 var(--s-3);
+  text-align: left;
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: rgba(8, 11, 20, 0.4);
+  transition: border-color var(--t-mid) var(--ease-out),
+    background var(--t-mid) var(--ease-out), transform var(--t-fast) var(--ease-out);
+}
+.seltab:hover {
+  transform: translateX(4px);
+  border-color: var(--line-strong);
+}
+.seltab.is-active {
+  border-color: color-mix(in srgb, var(--acc) 60%, transparent);
+  background: linear-gradient(120deg, color-mix(in srgb, var(--acc) 12%, transparent), transparent);
+}
+.seltab.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 12%;
+  height: 76%;
+  width: 3px;
+  background: var(--acc);
+  box-shadow: 0 0 14px var(--acc);
+}
+.seltab__no {
+  grid-area: no;
+  align-self: center;
+  color: var(--acc);
+  font-size: 0.95rem;
+}
+.seltab__name {
+  grid-area: name;
+  font-size: 1rem;
+  color: var(--text);
+}
+.seltab__kick {
+  grid-area: kick;
+  color: var(--c-cyan);
+}
+
+.selector__detail {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  align-items: center;
+  animation: selIn 0.5s var(--ease-out) both;
+}
+@keyframes selIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+.selector__viz {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--acc) 16%, transparent), transparent 62%), #080b12;
+  border: 1px solid var(--line);
+  display: grid;
+  place-items: center;
+}
+.selector__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+/* =====================================================================
+   SERVICES PAGE
+   ===================================================================== */
+.servpage__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+}
+.servcard {
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  transition: transform var(--t-mid) var(--ease-out),
+    border-color var(--t-mid) var(--ease-out);
+}
+.servcard:hover {
+  transform: translateY(-5px);
+  border-color: var(--line-strong);
+}
+.servcard__no {
+  font-size: 1.6rem;
+  color: var(--c-magenta-soft);
+}
+.servpage__band {
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+.servpage__band-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+  max-width: 30ch;
+  margin-inline: auto;
+}
+.servpage__band-inner h2 {
+  max-width: 24ch;
+}
+
+/* =====================================================================
+   CONTACT PAGE
+   ===================================================================== */
+.contact__grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+.contact__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  position: sticky;
+  top: 110px;
+}
+.contact__block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.contact__block .mono {
+  color: var(--c-cyan);
+}
+.contact__big {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.contact__line {
+  color: var(--text-dim);
+  transition: color var(--t-fast);
+}
+.contact__line:hover {
+  color: var(--text);
+}
+
+.contact__formwrap {
+  padding: clamp(1.5rem, 4vw, 2.6rem);
+}
+.contact__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.field--full {
+  grid-column: 1 / -1;
+}
+.field label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mid);
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  background: rgba(5, 6, 10, 0.6);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+.field textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-faint);
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--c-cyan);
+  box-shadow: 0 0 0 1px var(--c-cyan), var(--glow-cyan);
+}
+.field input[aria-invalid="true"],
+.field textarea[aria-invalid="true"] {
+  border-color: var(--c-magenta);
+}
+.field__err {
+  color: var(--c-magenta-soft);
+}
+.contact__submit {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+
+/* success */
+.contact__success {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-4) 0;
+}
+.contact__check {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--grad-plasma);
+  box-shadow: var(--glow-magenta);
+}
+.contact__check span {
+  width: 18px;
+  height: 9px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translate(1px, -2px);
+}
+
+@media (max-width: 900px) {
+  .servpage__grid {
+    grid-template-columns: 1fr;
+  }
+  .contact__grid {
+    grid-template-columns: 1fr;
+  }
+  .contact__info {
+    position: static;
+  }
+  .prodpage .prodrow {
+    grid-template-columns: 1fr;
+  }
+  .prodrow--rev .prodrow__viz {
+    order: 0;
+  }
+  .metricstrip__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-5) var(--s-4);
+  }
+  .selector__body {
+    grid-template-columns: 1fr;
+  }
+  .selector__detail {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 620px) {
+  .contact__form {
+    grid-template-columns: 1fr;
+  }
+  .servpage__grid {
+    grid-template-columns: 1fr;
+  }
+  .metricstrip__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

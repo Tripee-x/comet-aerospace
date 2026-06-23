@@ -1,0 +1,115 @@
+/* =====================================================================
+   COMET AEROSPACE — DESIGN TOKENS
+   Single source of truth: color, type, spacing, glow, motion, radius, z.
+   Dark theme is locked for the whole site (aerospace launch-film identity).
+   ===================================================================== */
+
+:root {
+  /* ---- Core surface (off-black, never pure #000) ---- */
+  --c-void: #05060a;
+  --c-abyss: #080a12;
+  --c-graphite: #11141d;
+  --c-graphite-2: #181c28;
+  --c-steel: #232838;
+  --c-ash: #3a4051;
+
+  /* ---- Metal / text ---- */
+  --c-chrome: #d6dae6;
+  --c-silver: #b4bccb;
+  --c-pearl: #f4f6fb;
+  --c-muted: #8b93a6;
+  --c-faint: #545c70;
+
+  /* ---- Accent system (professional cold-blue + tactical amber).
+     Token names kept for stability; values are the defense-grade palette. ---- */
+  --c-magenta: #4da6ff; /* primary: ice blue */
+  --c-magenta-soft: #9fccff; /* light ice */
+  --c-purple: #2f6bff; /* secondary: deep azure */
+  --c-purple-deep: #16306e; /* navy */
+  --c-cyan: #41d4dd; /* cool cyan */
+  --c-cyan-soft: #a6eef2;
+  --c-amber: #f5a623; /* tactical warning accent — used sparingly */
+  --c-amber-soft: #ffd591;
+
+  /* ---- Semantic ---- */
+  --bg: var(--c-void);
+  --bg-elevated: var(--c-graphite);
+  --text: var(--c-pearl);
+  --text-dim: var(--c-silver);
+  --text-faint: var(--c-muted);
+  --accent: var(--c-magenta);
+  --accent-2: var(--c-purple);
+  --accent-3: var(--c-cyan);
+  --line: rgba(154, 163, 181, 0.14);
+  --line-strong: rgba(154, 163, 181, 0.28);
+
+  /* ---- Glow tokens (restrained — controlled rim light, not neon wash) ---- */
+  --glow-magenta: 0 0 14px rgba(77, 166, 255, 0.34), 0 0 38px rgba(77, 166, 255, 0.12);
+  --glow-purple: 0 0 14px rgba(47, 107, 255, 0.3), 0 0 40px rgba(47, 107, 255, 0.1);
+  --glow-cyan: 0 0 12px rgba(65, 212, 221, 0.3), 0 0 32px rgba(65, 212, 221, 0.1);
+  --glow-amber: 0 0 12px rgba(245, 166, 35, 0.4), 0 0 30px rgba(245, 166, 35, 0.14);
+  --glow-soft: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 24px 60px rgba(0, 0, 0, 0.6);
+  --text-glow: 0 0 14px rgba(77, 166, 255, 0.3);
+
+  /* ---- Gradients ---- */
+  --grad-plasma: linear-gradient(120deg, var(--c-magenta), var(--c-purple) 55%, var(--c-cyan));
+  --grad-chrome: linear-gradient(180deg, #ffffff 0%, #dfe4ee 42%, #8e98ab 72%, #c2c9d8 100%);
+  --grad-panel: linear-gradient(160deg, rgba(35, 40, 56, 0.5), rgba(8, 10, 18, 0.6));
+  --grad-fade-down: linear-gradient(180deg, transparent, var(--c-void));
+
+  /* ---- Typography ---- */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-tactical: "Rajdhani", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
+
+  --fs-mono: clamp(0.62rem, 0.72vw, 0.72rem);
+  --fs-body: clamp(0.92rem, 1vw, 1.02rem);
+  --fs-lead: clamp(1rem, 1.25vw, 1.18rem);
+  --fs-h3: clamp(1.1rem, 1.7vw, 1.4rem);
+  --fs-h2: clamp(1.55rem, 3.4vw, 2.5rem);
+  --fs-h1: clamp(1.9rem, 4.6vw, 3.4rem);
+  --fs-mega: clamp(2.2rem, 7vw, 5rem);
+
+  --track-wide: 0.3em;
+  --track-mid: 0.15em;
+
+  /* readability shadow for copy that sits over the 3D scene */
+  --shadow-text: 0 2px 20px rgba(5, 6, 10, 0.92), 0 1px 4px rgba(5, 6, 10, 0.85);
+
+  /* ---- Spacing scale ---- */
+  --s-1: 0.5rem;
+  --s-2: 0.75rem;
+  --s-3: 1rem;
+  --s-4: 1.5rem;
+  --s-5: 2rem;
+  --s-6: 3rem;
+  --s-7: 4.5rem;
+  --s-8: 7rem;
+  --s-9: 11rem;
+  --section-pad: clamp(4.5rem, 11vh, 9rem);
+  --maxw: 1320px;
+  --maxw-text: 62ch;
+
+  /* ---- Radius (locked scale) ---- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* ---- Motion timing tokens ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.83, 0, 0.17, 1);
+  --t-fast: 0.18s;
+  --t-mid: 0.4s;
+  --t-slow: 0.8s;
+
+  /* ---- Z-index scale ---- */
+  --z-grain: 70;
+  --z-nav: 60;
+  --z-preloader: 90;
+  --z-progress: 65;
+  --z-overlay: 40;
+  --z-canvas: 1;
+}
