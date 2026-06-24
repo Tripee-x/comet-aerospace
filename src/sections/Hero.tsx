@@ -22,7 +22,6 @@ export function Hero() {
   const phaseRefs = useRef<(HTMLDivElement | null)[]>([]);
   const hudVehicleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
   const ladderRef = useRef<HTMLDivElement>(null);
   const telSig = useRef<HTMLSpanElement>(null);
   const telFrame = useRef<HTMLSpanElement>(null);
@@ -83,19 +82,11 @@ export function Hero() {
             });
           }
 
-          // --- CTA (final beat) appears after the standby silhouette ---
-          if (ctaRef.current) {
-            const o = band(p, 0.86, 1.02, 0.03);
-            ctaRef.current.style.opacity = String(o);
-            ctaRef.current.style.transform = `translateY(${(1 - o) * 24}px)`;
-            ctaRef.current.style.visibility = o < 0.01 ? "hidden" : "visible";
-          }
-
-          // --- exit transition (phase 8): blur + fade + clip the stage out ---
-          const exit = Math.max(0, (p - 0.95) / 0.05);
-          stage.style.filter = `blur(${exit * 14}px)`;
-          stage.style.opacity = String(1 - exit * 0.85);
-          stage.style.clipPath = `inset(0 0 ${exit * 38}% 0)`;
+          // --- entry handoff: as we push through the open hatch, darken into
+          //     the interior so the next (InteriorBay) section takes over ---
+          const exit = Math.max(0, (p - 0.93) / 0.07);
+          stage.style.filter = `brightness(${1 - exit * 0.7})`;
+          stage.style.opacity = String(1 - exit * 0.4);
 
           // --- telemetry + phase ladder ---
           if (telSig.current)
@@ -187,7 +178,7 @@ export function Hero() {
             the cards and CTA blocks below, so their text overlays are skipped */}
         <div className="hero__copy">
           {HERO_PHASES.map((ph, i) => {
-            if (ph.id === "capability" || ph.id === "exit") {
+            if (ph.id === "capability") {
               phaseRefs.current[i] = null;
               return null;
             }
@@ -228,19 +219,6 @@ export function Hero() {
           </div>
         </div>
 
-        {/* CTA (final release beat) */}
-        <div ref={ctaRef} className="hero__cta">
-          <span className="eyebrow">PHASE 07 // RELEASE</span>
-          <h2 className="display h1 text-plasma">Explore Systems.</h2>
-          <div className="row">
-            <TacticalButton to="/products" variant="solid" large>
-              Explore Systems
-            </TacticalButton>
-            <TacticalButton to="/services" variant="ghost" large>
-              View Services
-            </TacticalButton>
-          </div>
-        </div>
       </div>
 
       {/* static-mode fallback copy (reduced motion) */}

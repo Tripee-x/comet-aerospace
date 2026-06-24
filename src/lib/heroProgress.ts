@@ -10,6 +10,12 @@ export const heroProgress = {
   value: 0,
 };
 
+// DEV-only: lets tooling drive the cinematic pose without scrolling.
+if (import.meta.env.DEV && typeof window !== "undefined") {
+  (window as unknown as { __heroProgress?: typeof heroProgress }).__heroProgress =
+    heroProgress;
+}
+
 /** Phase boundaries from the creative brief (8 cinematic phases). */
 export const PHASES = [0, 0.12, 0.25, 0.38, 0.52, 0.66, 0.78, 0.9, 1] as const;
 

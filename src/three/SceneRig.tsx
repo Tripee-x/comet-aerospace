@@ -14,9 +14,9 @@ const CAM: { pos: [number, number, number]; look: [number, number, number] }[] =
   { pos: [-7.5, -4.2, 7.5], look: [0, -0.6, 0] }, // survey — drop below + orbit
   { pos: [6.5, 3.2, 13.5], look: [0, 0.5, 0] }, // doctrine — swing wide 3/4
   { pos: [0.5, 1.8, 12.5], look: [0, 1.2, 0] }, // capability — frame vehicle above the cards
-  { pos: [0.5, 2.5, 26], look: [0, 1.0, 0] }, // standby — pull way back, silhouette
-  { pos: [3.0, 1.0, 11], look: [0, 0.5, 0] }, // release — settle into hero framing
-  { pos: [0.0, 3.0, 30], look: [0, 1.2, 0] }, // end — drift out into the void
+  { pos: [0.0, 0.7, 5.5], look: [0, 0.32, 0] }, // approach — swing to the forward hatch
+  { pos: [0.0, 0.42, 2.4], look: [0, 0.32, 0] }, // at the door — tight on the hatch
+  { pos: [0.0, 0.33, 1.05], look: [0, 0.32, 0] }, // entry — push through the open hatch
 ];
 
 const smooth = (t: number) => t * t * (3 - 2 * t);

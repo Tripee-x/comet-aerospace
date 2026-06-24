@@ -63,15 +63,15 @@ export const HERO_PHASES = [
   },
   {
     id: "pullback",
-    tag: "PHASE 06 // STANDBY",
-    title: "A silhouette against the grid.",
-    sub: "The platform holds. The story is ready.",
+    tag: "PHASE 06 // APPROACH",
+    title: "Aligning to the access hatch.",
+    sub: "Forward door, dead ahead.",
   },
   {
     id: "exit",
-    tag: "PHASE 07 // RELEASE",
-    title: "Explore Systems.",
-    sub: "Continue into the program brief.",
+    tag: "PHASE 07 // ENTRY",
+    title: "Keep scrolling to open the hatch.",
+    sub: "Stand by. We are going inside.",
   },
 ] as const;
 

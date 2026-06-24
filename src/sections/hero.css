@@ -220,39 +220,42 @@
 /* =====================================================================
    PHASE COPY
    ===================================================================== */
+/* Copy is centered horizontally and anchored to the lower third, so it reads
+   as a clean title card while the vehicle stays framed in the upper center. */
 .hero__copy {
   position: absolute;
   inset: 0;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  padding: 0 clamp(1.25rem, 5vw, 3rem) clamp(7vh, 13vh, 9rem);
   z-index: 4;
   pointer-events: none;
 }
-/* Copy is placed off-center per phase so the 3D scene stays the hero.
-   Default: lower-left, left-aligned. Per-phase modifiers reposition. */
 .hphase {
-  position: absolute;
-  left: clamp(1.25rem, 6vw, 7rem);
-  bottom: clamp(3.5rem, 14vh, 8rem);
+  position: relative;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--s-3);
-  text-align: left;
-  max-width: min(34ch, 84vw);
+  text-align: center;
+  max-width: min(46ch, 92vw);
   opacity: 0;
   visibility: hidden;
   will-change: opacity, transform;
 }
-/* soft scrim hugging the text box only (does not darken the whole center) */
+/* soft elliptical scrim behind the centered copy for legibility */
 .hphase::before {
   content: "";
   position: absolute;
-  inset: -26% -24% -26% -16%;
+  inset: -34% -22%;
   z-index: -1;
   background: radial-gradient(
-    ellipse at 32% 50%,
-    rgba(5, 6, 10, 0.85) 0%,
-    rgba(5, 6, 10, 0.5) 48%,
-    rgba(5, 6, 10, 0) 76%
+    ellipse at center,
+    rgba(5, 6, 10, 0.86) 0%,
+    rgba(5, 6, 10, 0.52) 46%,
+    rgba(5, 6, 10, 0) 74%
   );
   pointer-events: none;
 }
@@ -267,47 +270,18 @@
 }
 .hphase .lead {
   color: var(--c-chrome);
+  margin-inline: auto;
+}
+.hphase--boot {
+  max-width: min(26ch, 92vw);
+}
+.hphase--mission {
+  max-width: min(44ch, 92vw);
 }
 .hero__hint {
   margin-top: var(--s-3);
   color: var(--text-faint);
   letter-spacing: var(--track-wide);
-}
-
-/* per-phase placement */
-.hphase--boot {
-  bottom: clamp(3rem, 12vh, 7rem);
-  max-width: min(22ch, 84vw);
-}
-.hphase--approach {
-  top: 36%;
-  bottom: auto;
-}
-.hphase--flyby {
-  top: 30%;
-  bottom: auto;
-  left: auto;
-  right: clamp(1.25rem, 6vw, 7rem);
-  align-items: flex-end;
-  text-align: right;
-}
-.hphase--flyby::before {
-  inset: -26% -16% -26% -24%;
-  background: radial-gradient(
-    ellipse at 68% 50%,
-    rgba(5, 6, 10, 0.85) 0%,
-    rgba(5, 6, 10, 0.5) 48%,
-    rgba(5, 6, 10, 0) 76%
-  );
-}
-.hphase--mission {
-  top: 28%;
-  bottom: auto;
-  max-width: min(40ch, 86vw);
-}
-.hphase--orbit,
-.hphase--pullback {
-  bottom: clamp(3.5rem, 15vh, 8rem);
 }
 
 /* =====================================================================
@@ -365,45 +339,6 @@
 }
 
 /* =====================================================================
-   CTA (phase 7)
-   ===================================================================== */
-.hero__cta {
-  position: absolute;
-  left: clamp(1.25rem, 6vw, 7rem);
-  bottom: clamp(3.5rem, 14vh, 8rem);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--s-4);
-  z-index: 5;
-  max-width: min(34ch, 86vw);
-  opacity: 0;
-  visibility: hidden;
-  text-align: left;
-  pointer-events: auto;
-}
-.hero__cta::before {
-  content: "";
-  position: absolute;
-  inset: -30% -24% -30% -16%;
-  z-index: -1;
-  background: radial-gradient(
-    ellipse at 32% 50%,
-    rgba(5, 6, 10, 0.88) 0%,
-    rgba(5, 6, 10, 0.5) 50%,
-    rgba(5, 6, 10, 0) 78%
-  );
-  pointer-events: none;
-}
-.hero__cta .eyebrow,
-.hero__cta h2 {
-  text-shadow: var(--shadow-text);
-}
-.hero__cta .row {
-  justify-content: flex-start;
-}
-
-/* =====================================================================
    STATIC (reduced-motion) MODE
    ===================================================================== */
 .hero--static {
@@ -415,7 +350,6 @@
 }
 .hero--static .hero__copy,
 .hero--static .hcards,
-.hero--static .hero__cta,
 .hero--static .hladder {
   display: none;
 }
@@ -453,35 +387,12 @@
     gap: var(--s-3);
   }
 }
-/* On narrow screens, anchor all copy to the lower-left and reset side/flyby
-   placement so nothing runs off the edge. */
 @media (max-width: 760px) {
-  .hphase,
-  .hphase--approach,
-  .hphase--flyby,
-  .hphase--mission,
-  .hphase--orbit,
-  .hphase--pullback {
-    left: clamp(1.1rem, 5vw, 2rem);
-    right: auto;
-    top: auto;
-    bottom: clamp(6rem, 16vh, 9rem);
-    align-items: flex-start;
-    text-align: left;
-    max-width: 88vw;
+  .hero__copy {
+    padding-bottom: clamp(8vh, 16vh, 12vh);
   }
-  .hphase--flyby::before {
-    inset: -26% -24% -26% -16%;
-    background: radial-gradient(
-      ellipse at 32% 50%,
-      rgba(5, 6, 10, 0.85) 0%,
-      rgba(5, 6, 10, 0.5) 48%,
-      rgba(5, 6, 10, 0) 76%
-    );
-  }
-  .hero__cta {
-    left: clamp(1.1rem, 5vw, 2rem);
-    max-width: 88vw;
+  .hphase {
+    max-width: 90vw;
   }
 }
 @media (max-width: 560px) {
