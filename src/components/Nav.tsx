@@ -1,30 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { gsap } from "../lib/gsap";
 import { BRAND, NAV_LINKS } from "../data/content";
 import { TacticalButton } from "./TacticalButton";
 import { CometMark } from "./CometMark";
 import "./nav.css";
 
 /**
- * Fixed premium nav. Hides on scroll-down, reveals on scroll-up, gains a
- * solid backdrop once past the fold. Mobile menu is a full-screen overlay.
+ * Fixed premium nav — always visible (never hides on scroll); gains a solid
+ * backdrop once past the fold. Mobile menu is a full-screen overlay.
  */
 export function Nav() {
   const barRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
   const [solid, setSolid] = useState(false);
-  const lastY = useRef(0);
   const { pathname } = useLocation();
 
-  // On route change: close the mobile menu AND force the bar back into view
-  // (the scroll-hide can leave it translated up when leaving a scrolled page).
-  useEffect(() => {
-    setOpen(false);
-    setSolid(false);
-    lastY.current = 0;
-    gsap.set(barRef.current, { yPercent: 0 });
-  }, [pathname]);
+  // Close the mobile menu on route change.
+  useEffect(() => setOpen(false), [pathname]);
 
   // Lock body scroll while the mobile overlay is open.
   useEffect(() => {
@@ -32,22 +24,13 @@ export function Nav() {
     return () => document.documentElement.classList.remove("lenis-stopped");
   }, [open]);
 
+  // Solid backdrop once scrolled past the fold (bar stays put — no hide).
   useEffect(() => {
     let raf = 0;
     const onScroll = () => {
       if (raf) return;
       raf = window.requestAnimationFrame(() => {
-        const y = window.scrollY;
-        setSolid(y > 40);
-        const goingDown = y > lastY.current && y > 240;
-        if (!open) {
-          gsap.to(barRef.current, {
-            yPercent: goingDown ? -130 : 0,
-            duration: 0.5,
-            ease: "power3.out",
-          });
-        }
-        lastY.current = y;
+        setSolid(window.scrollY > 40);
         raf = 0;
       });
     };
@@ -56,7 +39,7 @@ export function Nav() {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [open]);
+  }, []);
 
   return (
     <>
