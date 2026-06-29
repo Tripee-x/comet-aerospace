@@ -3,6 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { gsap } from "../lib/gsap";
 import { BRAND, NAV_LINKS } from "../data/content";
 import { TacticalButton } from "./TacticalButton";
+import { CometMark } from "./CometMark";
 import "./nav.css";
 
 /**
@@ -16,8 +17,14 @@ export function Nav() {
   const lastY = useRef(0);
   const { pathname } = useLocation();
 
-  // Close mobile menu whenever the route changes.
-  useEffect(() => setOpen(false), [pathname]);
+  // On route change: close the mobile menu AND force the bar back into view
+  // (the scroll-hide can leave it translated up when leaving a scrolled page).
+  useEffect(() => {
+    setOpen(false);
+    setSolid(false);
+    lastY.current = 0;
+    gsap.set(barRef.current, { yPercent: 0 });
+  }, [pathname]);
 
   // Lock body scroll while the mobile overlay is open.
   useEffect(() => {
@@ -56,9 +63,7 @@ export function Nav() {
       <header ref={barRef} className={`nav ${solid ? "nav--solid" : ""}`}>
         <div className="nav__inner shell">
           <NavLink to="/" className="nav__brand" aria-label={`${BRAND.name} home`}>
-            <span className="nav__mark" aria-hidden>
-              <span className="nav__comet" />
-            </span>
+            <CometMark size={26} className="nav__logo" />
             <span className="nav__word tactical">{BRAND.name}</span>
           </NavLink>
 

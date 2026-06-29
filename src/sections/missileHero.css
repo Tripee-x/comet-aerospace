@@ -1,0 +1,306 @@
+/* =====================================================================
+   MISSILE HERO — scroll-scrub frame sequence
+   The <section> itself is pinned (trigger === pin) and GSAP adds the scroll
+   length via pinSpacing, end = +=innerHeight*6.
+   ===================================================================== */
+.mhero {
+  position: relative;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--c-void);
+  /* single edge margin so HUD + copy + phase bar all align to one grid */
+  --hero-edge: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+/* canvas fills the viewport; cover-fit + DPR handled in JS */
+.mhero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* legibility: top scrim (nav) + a strong bottom readable zone for copy */
+.mhero__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 7, 11, 0.7) 0%,
+    rgba(5, 7, 11, 0) 20%,
+    rgba(5, 7, 11, 0) 40%,
+    rgba(5, 7, 11, 0.45) 60%,
+    rgba(5, 7, 11, 0.82) 82%,
+    rgba(5, 7, 11, 0.96) 100%
+  );
+}
+.mhero__vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 240px 50px rgba(5, 7, 11, 0.72);
+}
+
+/* =====================================================================
+   PRELOADER
+   ===================================================================== */
+.mhero__loader {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 50% 45%, #080b12, var(--c-void) 75%);
+}
+.mhero__loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  width: min(320px, 70vw);
+  text-align: center;
+}
+.mhero__loader-label {
+  color: var(--c-cyan);
+  letter-spacing: var(--track-wide);
+}
+.mhero__loader-num {
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.mhero__loader-num::after {
+  content: "%";
+  font-size: 0.34em;
+  vertical-align: super;
+  color: var(--text-dim);
+  margin-left: 0.2em;
+}
+.mhero__loader-bar {
+  width: 100%;
+  height: 2px;
+  background: var(--c-steel);
+  overflow: hidden;
+}
+.mhero__loader-bar span {
+  display: block;
+  height: 100%;
+  background: var(--grad-plasma);
+  transform-origin: 0 50%;
+  transition: transform 0.2s var(--ease-out);
+}
+.mhero__loader-sub {
+  color: var(--text-faint);
+}
+
+/* =====================================================================
+   HUD — everything aligned to --hero-edge
+   ===================================================================== */
+.mhero__hud {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+.mhero__corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+.mhero__corner.tl { top: 92px; left: var(--hero-edge); border-left: 1px solid var(--c-cyan); border-top: 1px solid var(--c-cyan); }
+.mhero__corner.tr { top: 92px; right: var(--hero-edge); border-right: 1px solid var(--c-cyan); border-top: 1px solid var(--c-cyan); }
+.mhero__corner.bl { bottom: 70px; left: var(--hero-edge); border-left: 1px solid var(--c-cyan); border-bottom: 1px solid var(--c-cyan); }
+.mhero__corner.br { bottom: 70px; right: var(--hero-edge); border-right: 1px solid var(--c-cyan); border-bottom: 1px solid var(--c-cyan); }
+.mhero__hud-top {
+  position: absolute;
+  top: 94px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding-inline: var(--hero-edge);
+  color: var(--c-cyan);
+}
+
+/* =====================================================================
+   SYNCED COPY — centered readable column, anchored low
+   ===================================================================== */
+.mhero__copy {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  padding: 0 var(--hero-edge) clamp(8.5rem, 17vh, 11rem);
+  pointer-events: none;
+}
+.mbeat,
+.mhero__cta {
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  text-align: center;
+  max-width: min(40ch, 92vw);
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+.mbeat--lead {
+  max-width: min(36ch, 88vw);
+}
+.mhero__headline,
+.mbeat__title {
+  color: #fff;
+  text-wrap: balance;
+  hyphens: none;
+  -webkit-hyphens: none;
+  text-shadow: 0 2px 22px rgba(5, 7, 11, 0.95), 0 1px 3px rgba(5, 7, 11, 0.92);
+}
+.mhero__headline {
+  font-size: clamp(1.35rem, 2.5vw, 2.05rem);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+}
+.mbeat__title {
+  font-size: clamp(1.55rem, 3.2vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.mbeat__body {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--c-chrome);
+  max-width: 38ch;
+  text-shadow: 0 1px 14px rgba(5, 7, 11, 0.9);
+}
+.mbeat .eyebrow,
+.mhero__cta .eyebrow {
+  text-shadow: 0 1px 12px rgba(5, 7, 11, 0.9);
+}
+.mhero__cta {
+  pointer-events: auto;
+  gap: var(--s-4);
+}
+.mhero__cta-row {
+  justify-content: center;
+}
+
+/* =====================================================================
+   PHASE BAR + SCROLL CUE (pinned to the bottom grid)
+   ===================================================================== */
+.mhero__phasebar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-inline: var(--hero-edge);
+  pointer-events: none;
+}
+.mhero__phasebar .mono {
+  color: var(--c-magenta-soft);
+  white-space: nowrap;
+}
+.mhero__prog {
+  flex: 1;
+  height: 1px;
+  background: var(--line-strong);
+  overflow: hidden;
+}
+.mhero__prog-fill {
+  display: block;
+  height: 100%;
+  background: var(--grad-plasma);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  box-shadow: var(--glow-magenta);
+}
+.mhero__cue {
+  position: absolute;
+  left: 50%;
+  bottom: 54px;
+  translate: -50% 0;
+  z-index: 7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+.mhero__cue .mono {
+  color: var(--text-dim);
+  letter-spacing: var(--track-wide);
+}
+.mhero__cue-line {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--c-cyan), transparent);
+  animation: cuePulse 1.8s var(--ease-inout) infinite;
+}
+@keyframes cuePulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; transform-origin: top; }
+  50% { transform: scaleY(1); opacity: 1; transform-origin: top; }
+}
+
+/* =====================================================================
+   REDUCED-MOTION STATIC (single key frame, copy overlaid low-left)
+   ===================================================================== */
+.mhero--static .mhero__copy,
+.mhero--static .mhero__cue,
+.mhero--static .mhero__phasebar {
+  display: none;
+}
+.mhero__static {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--hero-edge);
+  padding-bottom: clamp(3rem, 10vh, 6rem);
+  max-width: 60ch;
+}
+.mhero__static .mhero__headline {
+  text-align: left;
+}
+
+/* =====================================================================
+   RESPONSIVE
+   ===================================================================== */
+@media (max-width: 760px) {
+  .mhero__copy {
+    padding-bottom: clamp(7.5rem, 18vh, 10rem);
+  }
+  .mhero__hud-top {
+    font-size: 0.58rem;
+  }
+  .mhero__cta-row {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mhero__cue-line {
+    animation: none;
+  }
+}

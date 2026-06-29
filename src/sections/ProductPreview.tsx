@@ -10,8 +10,8 @@ export function ProductPreview() {
       <div className="shell">
         <div className="prod__head">
           <Reveal>
-            <span className="eyebrow">CONCEPT PLATFORMS</span>
-            <h2 className="display h2">Systems, framed as stories.</h2>
+            <span className="eyebrow">PRODUCT PORTFOLIO</span>
+            <h2 className="display h2">Three products, one propulsion core.</h2>
           </Reveal>
           <TacticalButton to="/products" variant="ghost">
             All Products
@@ -37,7 +37,7 @@ export function ProductPreview() {
             </div>
             <h3 className="display h3">{p.name}</h3>
             <p className="dim">{p.summary}</p>
-            <span className="prod__more mono">View concept</span>
+            <span className="prod__more mono">View product</span>
           </Link>
         ))}
       </div>

@@ -1,13 +1,14 @@
 /* =====================================================================
    COMET AEROSPACE — CONTENT
-   All copy is high-level and conceptual. No operational defense detail:
-   no range, payload, propulsion, guidance, targeting, or deployment data.
+   Sourced from the company pitch deck. Comet builds indigenous solid rocket
+   motors. Figures shown (range, CEP, flight-test numbers) are the company's
+   own published, investor-facing marketing figures.
    ===================================================================== */
 
 export const BRAND = {
   name: "Comet Aerospace",
   short: "COMET",
-  tagline: "Precision aerospace systems for sovereign innovation.",
+  tagline: "We build India's solid rocket motors. In-house.",
   founder: "Abhishek Nand",
   role: "Co-founder, Comet Aerospace",
   email: "contact@cometaerospace.example",
@@ -18,173 +19,150 @@ export const BRAND = {
 export const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
-  { label: "Services", to: "/services" },
+  { label: "Capability", to: "/services" },
   { label: "Contact Us", to: "/contact" },
 ];
 
-/** Hero phase text — revealed in stages while the hero is pinned. */
-export const HERO_PHASES = [
+/** Hero launch-sequence beats, synced to the scroll-scrub footage.
+ *  Tells the real company story: why now → what we build → flight-proven. */
+export const LAUNCH_SEQUENCE = [
   {
-    id: "boot",
-    tag: "SYS // INITIALIZE",
-    title: "COMET AEROSPACE",
-    sub: "Calibrating optics. Establishing telemetry link.",
+    id: "why",
+    code: "01 // WHY NOW",
+    title: "The character of conflict changed.",
+    body: "Cheap mass, autonomy, and layered air defence now decide engagements once owned by legacy platforms.",
   },
   {
-    id: "approach",
-    tag: "PHASE 01 // APPROACH",
-    title: "Precision aerospace systems for sovereign innovation.",
-    sub: "A concept platform, rendered as a study in form and intent.",
+    id: "build",
+    code: "02 // WHAT WE BUILD",
+    title: "Solid rocket motors. In-house.",
+    body: "One vertically integrated team owning the whole propulsion stack, from propellant chemistry to nozzle.",
   },
   {
-    id: "flyby",
-    tag: "PHASE 02 // PROFILE",
-    title: "Built for precision. Designed for resilience.",
-    sub: "Chrome geometry, plasma signature, deliberate restraint.",
+    id: "flown",
+    code: "03 // FLIGHT-PROVEN",
+    title: "One motor, already flown in 2026.",
+    body: "Interceptor motor launch test, 15 March 2026: 1 km altitude, 2.4 km range. Successful.",
   },
   {
-    id: "orbit",
-    tag: "PHASE 03 // SURVEY",
-    title: "Every surface answers to the mission.",
-    sub: "Structural intent mapped across the airframe.",
+    id: "roadmap",
+    code: "04 // THE ROADMAP",
+    title: "Three products, one propulsion core.",
+    body: "RATO thrusters, a surface-to-surface precision strike, and a surface-to-air interceptor.",
   },
   {
-    id: "mission",
-    tag: "PHASE 04 // DOCTRINE",
-    title:
-      "We help aerospace and defense-tech builders turn complex product ideas into clear, credible, investor-ready systems.",
-    sub: "Strategy first. Spectacle second.",
-  },
-  {
-    id: "capability",
-    tag: "PHASE 05 // CAPABILITY",
-    title: "Three disciplines, one trajectory.",
-    sub: "Strategy, systems thinking, and mission-ready design.",
-  },
-  {
-    id: "pullback",
-    tag: "PHASE 06 // APPROACH",
-    title: "Aligning to the access hatch.",
-    sub: "Forward door, dead ahead.",
-  },
-  {
-    id: "exit",
-    tag: "PHASE 07 // ENTRY",
-    title: "Keep scrolling to open the hatch.",
-    sub: "Stand by. We are going inside.",
+    id: "owned",
+    code: "05 // OWNED BY INDIA",
+    title: "Indigenous by mandate, not by slogan.",
+    body: "Built for a market where listed items are illegal to import and indigenous IP is rewarded.",
   },
 ] as const;
-
-export const HUD_LABELS = [
-  { id: "nose", label: "FORE / OPTICS", value: "NODE A1" },
-  { id: "mid", label: "STRUCTURE / SPINE", value: "NODE B4" },
-  { id: "fin", label: "AERO / STABILIZE", value: "NODE C2" },
-  { id: "aft", label: "AFT / SIGNATURE", value: "NODE D7" },
-];
 
 export const CAPABILITIES = [
   {
     no: "01",
-    title: "Aerospace Product Strategy",
-    body: "We shape the trajectory of an aerospace concept from first principle to credible roadmap, so the program reads as inevitable rather than speculative.",
-    tag: "STRATEGY",
+    title: "Propellant & Grain",
+    body: "Solid propellant chemistry and grain geometry tuned per mission, the energy source designed in-house from first principles.",
+    tag: "CHEMISTRY",
   },
   {
     no: "02",
-    title: "Defense Systems Thinking",
-    body: "We frame complex platforms as coherent systems, aligning capability narrative with the realities of stakeholders, timelines, and trust.",
-    tag: "SYSTEMS",
+    title: "Casing, Throat & Nozzle",
+    body: "Motor casing, throat, and nozzle engineered together for thrust and weight, so the structure answers to the burn.",
+    tag: "STRUCTURE",
   },
   {
     no: "03",
-    title: "Mission-Ready Product Design",
-    body: "We translate ambition into precise, presentable form, the kind of clarity that survives an engineering review and a boardroom in the same week.",
-    tag: "DESIGN",
+    title: "Thrust & Flight Control",
+    body: "Stabilization and guidance that put energy on target, proven on a live-fire flight test, not a slide.",
+    tag: "CONTROL",
   },
 ];
 
 export const PURPOSE = {
-  eyebrow: "WHO WE ARE",
-  title: "A studio for the hardest product stories in aerospace.",
-  body: "Comet Aerospace is a concept and strategy practice. We work alongside aerospace companies and defense-technology founders to give difficult, high-stakes ideas a form that is clear, credible, and ready to be understood by the people who fund and build them.",
+  eyebrow: "WHAT WE BUILD",
+  title: "From propellant chemistry to a flight-proven motor.",
+  body: "Comet Aerospace designs and builds solid rocket motors in-house. One vertically integrated team owns the whole propulsion stack, propellant and grain, casing and nozzle, thrust and flight control, and the live-fire testing that proves it.",
   stats: [
-    { k: "Concept platforms", v: "End to end" },
-    { k: "Focus", v: "Strategy + form" },
-    { k: "Posture", v: "Non-operational" },
+    { k: "Flight test", v: "Mar 2026" },
+    { k: "Stack", v: "Owned end to end" },
+    { k: "Stage", v: "Pre-seed" },
   ],
 };
 
 export const MISSION = {
-  eyebrow: "MISSION",
+  eyebrow: "WHY NOW",
   quote:
-    "We help aerospace and defense-tech builders turn complex product ideas into clear, credible, investor-ready systems.",
-  sub: "Conceptual by design. We work at the level of intent, narrative, and architecture, never operational specification.",
+    "Mass, affordability, and layered defence now decide engagements. We build the indigenous propulsion that lets India field them at home.",
+  sub: "A ₹50,000 drone can defeat a ₹50 crore system. Survivability demands stacked detect-track-intercept layers, built on motors made here.",
 };
 
-/** Products — conceptual only. No specs, range, payload, propulsion, guidance. */
+/** Products — three products on one propulsion core. Figures are the
+ *  company's own published marketing figures from the deck. */
 export const PRODUCTS = [
   {
-    no: "P-01",
-    name: "Surface-to-Surface Aerospace System",
-    kicker: "Concept Platform",
-    summary:
-      "A conceptual study in long-form ground architecture, explored purely as product narrative, form language, and system framing.",
-    desc: "We treat this platform as a storytelling and design exercise: how a complex ground-based aerospace concept should look, read, and be reasoned about by investors and partners. The work stays at the level of intent and presentation.",
-    tags: ["Concept Platform", "Strategic Architecture", "Investor-Ready"],
-    accent: "magenta",
-  },
-  {
-    no: "P-02",
-    name: "Surface-to-Water Strategic System",
-    kicker: "Strategic Architecture",
-    summary:
-      "An abstract maritime-domain concept framed around resilience, posture, and clarity of program story.",
-    desc: "A high-level architecture study of how a strategic surface-to-water concept can be communicated with precision. We focus on the credibility of the narrative and the discipline of the visual system, nothing operational.",
-    tags: ["Strategic Architecture", "Defense Readiness", "Concept Platform"],
-    accent: "purple",
-  },
-  {
-    no: "P-03",
-    name: "Surface-to-Air Defense Concept",
-    kicker: "Defense Readiness",
-    summary:
-      "A conceptual air-domain defense study expressed through form, posture, and program framing.",
-    desc: "We render the idea of an air-domain defense concept as a premium, legible product story. The deliverable is clarity and confidence in how the concept is positioned, presented entirely without operational detail.",
-    tags: ["Defense Readiness", "Strategic Architecture", "Investor-Ready"],
-    accent: "cyan",
-  },
-];
-
-export const SERVICES = [
-  {
     no: "01",
-    title: "Aerospace product strategy",
-    body: "We define the product trajectory for aerospace concepts, from positioning and narrative to the roadmap that makes a program legible to investors and partners.",
+    name: "RATO Thrusters",
+    kicker: "Prototype",
+    summary:
+      "Rocket-Assisted Takeoff. Strap-on solid boosters that lift heavy-payload drones off short or unprepared runways.",
+    desc: "Extra thrust at the exact moment it matters: a short-duration, high-thrust solid rocket motor that gets heavy UAVs airborne from places a runway never reaches.",
+    tags: ["Solid Rocket Motor", "Heavy-Drone Takeoff", "Prototype"],
+    accent: "cyan",
   },
   {
     no: "02",
-    title: "Defense startup consulting",
-    body: "We advise defense-technology founders on how to frame, sequence, and present their concepts with the credibility that early-stage programs demand.",
+    name: "Surface-to-Surface",
+    kicker: "In development",
+    summary:
+      "A precision-strike missile delivering sub-5-metre accuracy out to 10 kilometres.",
+    desc: "Tactical reach with the cost profile of an indigenous, volume-built motor: 10 km operational range, circular error probable under 5 metres, on a solid rocket motor designed in-house.",
+    tags: ["10 km Range", "CEP < 5 m", "In Development"],
+    accent: "magenta",
   },
   {
     no: "03",
-    title: "Product architecture advisory",
-    body: "We structure complex platforms as coherent systems, clarifying how the parts relate so the whole reads as deliberate engineering, not assembly.",
+    name: "Surface-to-Air",
+    kicker: "On the roadmap",
+    summary:
+      "A guided interceptor motor for short-range, layered air defence.",
+    desc: "Drones, loitering munitions, and low-flying threats. It builds directly on our surface-to-surface motor and the flight-test program already underway, the same propulsion core, extended to the air-defence mission.",
+    tags: ["Interceptor", "Layered Defence", "Prospective"],
+    accent: "purple",
+  },
+];
+
+/** "Capability" page items — the propulsion stack and the program around it. */
+export const SERVICES = [
+  {
+    no: "01",
+    title: "Solid propellant chemistry",
+    body: "We formulate the propellant ourselves, tuning the energy source to the mission rather than buying a fixed off-the-shelf grain.",
+  },
+  {
+    no: "02",
+    title: "Grain geometry design",
+    body: "Grain geometry is shaped per mission to set the burn profile, short and high-thrust for takeoff, sustained for range.",
+  },
+  {
+    no: "03",
+    title: "Casing, throat & nozzle",
+    body: "Motor casing, throat, and nozzle are engineered together for thrust and weight, the structure that contains the burn.",
   },
   {
     no: "04",
-    title: "Investor-grade product storytelling",
-    body: "We build the narrative spine and visual language that lets a technical aerospace concept land with conviction in a funding conversation.",
+    title: "Thrust & flight control",
+    body: "Stabilization and basic flight control put the energy on target, validated on hardware in live flight.",
   },
   {
     no: "05",
-    title: "Prototype experience design",
-    body: "We design the experience around a concept, the interfaces, demonstrations, and touchpoints that let stakeholders feel the product before it is built.",
+    title: "Live-fire flight testing",
+    body: "We fly what we build. One interceptor motor has already flown, reaching 1 km altitude and 2.4 km range in March 2026.",
   },
   {
     no: "06",
-    title: "Strategic positioning for aerospace products",
-    body: "We sharpen where an aerospace product stands in its landscape, so the concept owns a clear, defensible, and memorable position.",
+    title: "Indigenous, volume-built motors",
+    body: "Designed and manufactured in India for a market where the listed items are illegal to import and indigenous IP is rewarded.",
   },
 ];
 
@@ -193,15 +171,16 @@ export const FOUNDER = {
   name: BRAND.founder,
   role: BRAND.role,
   quote:
-    "Aerospace deserves storytelling as precise as its engineering. We build the clarity that lets serious concepts be taken seriously.",
-  body: "Comet Aerospace exists for the moment a hard idea needs to become a credible program. Our work is conceptual, strategic, and unapologetically high-craft, and it stops exactly where operational detail would begin.",
+    "The character of conflict changed, and we felt it firsthand. The answer is propulsion that India owns end to end.",
+  body: "Comet Aerospace exists to build that propulsion. We own the whole stack, from propellant chemistry to a motor that has already flown, so the hard part of layered defence is made here, at a cost that scales.",
 };
 
 export const INQUIRY_TYPES = [
-  "Aerospace product strategy",
-  "Defense startup consulting",
-  "Product architecture advisory",
-  "Investor-grade storytelling",
+  "Propulsion / motor inquiry",
+  "RATO thrusters",
+  "Surface-to-surface program",
+  "Air-defence roadmap",
+  "Investment / pre-seed",
   "Partnership inquiry",
   "Other",
 ];

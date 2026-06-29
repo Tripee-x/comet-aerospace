@@ -9,15 +9,14 @@ export function Services() {
       <header className="pagehead">
         <div className="grid-bg" aria-hidden />
         <div className="shell pagehead__inner">
-          <span className="eyebrow">SERVICES // ADVISORY</span>
+          <span className="eyebrow">CAPABILITY // PROPULSION STACK</span>
           <h1 className="display h1">
-            We consult aerospace companies and <span className="text-plasma">defense startups</span>.
+            From propellant chemistry to a <span className="text-plasma">flight-proven motor</span>.
           </h1>
           <p className="lead">
-            Comet Aerospace partners with founders and teams building hard
-            aerospace and defense-technology concepts. We bring strategy,
-            structure, and storytelling, the work that turns a complex idea into
-            a program people can fund and trust.
+            Comet Aerospace is one vertically integrated team that owns the whole
+            propulsion stack. We formulate the propellant, engineer the casing
+            and nozzle, control the flight, and fly what we build.
           </p>
         </div>
       </header>

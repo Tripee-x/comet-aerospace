@@ -9,13 +9,13 @@ export function ServicesPreview() {
       <div className="shell">
         <div className="serv__head">
           <Reveal>
-            <span className="eyebrow">ADVISORY</span>
+            <span className="eyebrow">CAPABILITY</span>
             <h2 className="display h2">
-              We consult aerospace companies and defense startups.
+              We own the whole propulsion stack.
             </h2>
             <p className="lead">
-              From first concept to investor-grade narrative, we give serious
-              programs the clarity they deserve.
+              Propellant and grain, casing and nozzle, thrust and flight
+              control, and the live-fire testing that proves it. In-house.
             </p>
           </Reveal>
         </div>

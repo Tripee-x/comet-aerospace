@@ -1,5 +1,4 @@
-import { Hero } from "../sections/Hero";
-import { InteriorBay } from "../sections/InteriorBay";
+import { MissileHero } from "../sections/MissileHero";
 import { Purpose } from "../sections/Purpose";
 import { Mission } from "../sections/Mission";
 import { Capabilities } from "../sections/Capabilities";
@@ -11,8 +10,7 @@ import { FinalCTA } from "../sections/FinalCTA";
 export function Home() {
   return (
     <>
-      <Hero />
-      <InteriorBay />
+      <MissileHero />
       <Purpose />
       <Mission />
       <Capabilities />

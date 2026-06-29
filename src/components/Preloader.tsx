@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "../lib/gsap";
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { BRAND } from "../data/content";
+import { CometMark } from "./CometMark";
 import "./preloader.css";
 
 /**
@@ -51,8 +52,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
           <span className="pre__cross v" />
           <span className="pre__cross h" />
           {!reduced && <span className="pre__sweep" />}
-          <span className="pre__blip b1" />
-          <span className="pre__blip b2" />
+          <CometMark size={54} className="pre__logo" />
         </div>
 
         <div className="pre__meta">

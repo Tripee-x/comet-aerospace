@@ -14,18 +14,18 @@ export function Products() {
       <header className="pagehead">
         <div className="grid-bg" aria-hidden />
         <div className="shell pagehead__inner">
-          <span className="eyebrow">PRODUCTS // CONCEPT PLATFORMS</span>
+          <span className="eyebrow">PRODUCTS // PORTFOLIO</span>
           <h1 className="display h1">
-            Three concepts, framed for <span className="text-plasma">credibility</span>.
+            Three products on one <span className="text-plasma">propulsion core</span>.
           </h1>
           <p className="lead">
-            Each platform below is a conceptual study, a narrative and design
-            exercise in how a serious aerospace idea should look, read, and be
-            reasoned about. Everything here stays high-level and non-operational.
+            RATO thrusters, a surface-to-surface precision strike, and a
+            surface-to-air interceptor. Every one runs on a solid rocket motor
+            we design and build in-house.
           </p>
           <p className="mono pagehead__note">
-            No specifications. No range, payload, propulsion, guidance, or
-            deployment detail. Concept and presentation only.
+            Figures shown are the company's own published, investor-facing
+            marketing figures.
           </p>
         </div>
       </header>
@@ -65,7 +65,7 @@ export function Products() {
         <div className="shell">
           <Reveal className="selector__head">
             <span className="eyebrow">PLATFORM SELECTOR</span>
-            <h2 className="display h2">Inspect each concept.</h2>
+            <h2 className="display h2">Inspect each product.</h2>
           </Reveal>
 
           <div className="selector__body">
@@ -150,7 +150,7 @@ export function Products() {
 
       <section className="section prodpage__cta">
         <Reveal className="shell prodpage__cta-inner">
-          <h2 className="display h2">Want a concept framed like this?</h2>
+          <h2 className="display h2">Want to talk propulsion?</h2>
           <TacticalButton to="/contact" variant="solid" large>
             Initiate Contact
           </TacticalButton>

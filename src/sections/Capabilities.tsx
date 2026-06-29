@@ -10,11 +10,11 @@ export function Capabilities() {
     <section className="section sec-cap">
       <div className="shell cap__grid">
         <div className="cap__aside">
-          <span className="eyebrow">CAPABILITY PILLARS</span>
-          <h2 className="display h2">Three disciplines, one trajectory.</h2>
+          <span className="eyebrow">THE PROPULSION STACK</span>
+          <h2 className="display h2">One motor, owned end to end.</h2>
           <p className="dim">
-            Every engagement draws on the same core practice, sequenced to the
-            stage of the program.
+            Every product draws on the same in-house propulsion core, from the
+            chemistry of the propellant to the control that puts it on target.
           </p>
         </div>
 
