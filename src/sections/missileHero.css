@@ -119,12 +119,14 @@
 .mhero__corner.br { bottom: 70px; right: var(--hero-edge); border-right: 1px solid var(--c-cyan); border-bottom: 1px solid var(--c-cyan); }
 .mhero__hud-top {
   position: absolute;
-  top: 94px;
+  top: 96px;
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
-  padding-inline: var(--hero-edge);
+  gap: var(--s-4);
+  /* clear the 20px corner brackets so labels never touch them */
+  padding-inline: calc(var(--hero-edge) + 34px);
   color: var(--c-cyan);
 }
 
