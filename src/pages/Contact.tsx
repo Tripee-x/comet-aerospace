@@ -26,7 +26,7 @@ export function Contact() {
     const next: typeof errors = {};
     if (!form.name.trim()) next.name = "Required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Enter a valid email";
-    if (!form.message.trim()) next.message = "Tell us a little about the concept";
+    if (!form.message.trim()) next.message = "Tell us a little about what you need";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -54,8 +54,8 @@ export function Contact() {
             Open a <span className="text-plasma">line</span>.
           </h1>
           <p className="lead">
-            Bring us the concept that is hard to explain. We will help you make
-            it clear, credible, and ready for the room that matters.
+            Propulsion programs, partnerships, or pre-seed investment. Tell us
+            what you are building and we will get back to you.
           </p>
         </div>
       </header>
@@ -98,7 +98,7 @@ export function Contact() {
                 <h2 className="display h3">Transmission received.</h2>
                 <p className="dim">
                   Thank you, {form.name.split(" ")[0] || "operator"}. This is a
-                  concept demo, so nothing was actually sent, but in a live build
+                  demo form, so nothing was actually sent, but in a live build
                   your inquiry would now be in our queue. We would reply to{" "}
                   <strong>{form.email}</strong> within two working days.
                 </p>

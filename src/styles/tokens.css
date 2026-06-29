@@ -14,11 +14,11 @@
   --c-ash: #3a4051;
 
   /* ---- Metal / text ---- */
-  --c-chrome: #d6dae6;
-  --c-silver: #b4bccb;
-  --c-pearl: #f4f6fb;
-  --c-muted: #8b93a6;
-  --c-faint: #545c70;
+  --c-chrome: #dde2ec;
+  --c-silver: #c3cad7;
+  --c-pearl: #f6f8fc;
+  --c-muted: #97a0b2;
+  --c-faint: #5c647a;
 
   /* ---- Accent system (professional cold-blue + tactical amber).
      Token names kept for stability; values are the defense-grade palette. ---- */
@@ -63,13 +63,13 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-body: "Space Grotesk", system-ui, -apple-system, sans-serif;
 
-  --fs-mono: clamp(0.62rem, 0.72vw, 0.72rem);
-  --fs-body: clamp(0.92rem, 1vw, 1.02rem);
-  --fs-lead: clamp(1rem, 1.25vw, 1.18rem);
-  --fs-h3: clamp(1.1rem, 1.7vw, 1.4rem);
-  --fs-h2: clamp(1.55rem, 3.4vw, 2.5rem);
-  --fs-h1: clamp(1.9rem, 4.6vw, 3.4rem);
-  --fs-mega: clamp(2.2rem, 7vw, 5rem);
+  --fs-mono: clamp(0.66rem, 0.75vw, 0.76rem);
+  --fs-body: clamp(1rem, 1.05vw, 1.12rem);
+  --fs-lead: clamp(1.08rem, 1.45vw, 1.32rem);
+  --fs-h3: clamp(1.2rem, 1.9vw, 1.55rem);
+  --fs-h2: clamp(1.6rem, 3.5vw, 2.6rem);
+  --fs-h1: clamp(2rem, 4.8vw, 3.6rem);
+  --fs-mega: clamp(2.3rem, 7vw, 5.2rem);
 
   --track-wide: 0.3em;
   --track-mid: 0.15em;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import Lenis from "lenis";
 import { gsap, ScrollTrigger } from "./gsap";
@@ -12,6 +12,7 @@ import { useReducedMotion } from "./useReducedMotion";
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const reduced = useReducedMotion();
   const { pathname } = useLocation();
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     if (reduced) return;
@@ -22,6 +23,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       smoothWheel: true,
       touchMultiplier: 1.4,
     });
+    lenisRef.current = lenis;
 
     // Keep ScrollTrigger in sync with Lenis position.
     lenis.on("scroll", ScrollTrigger.update);
@@ -36,14 +38,19 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, [reduced]);
 
-  // Reset scroll + recalc triggers on every route change.
-  useEffect(() => {
+  // Reset to the TOP on every route change, before paint. Critically, Lenis
+  // keeps its own scroll target, so window.scrollTo alone leaves the new page
+  // wherever the previous one was (often the bottom) — reset Lenis too.
+  useLayoutEffect(() => {
+    const lenis = lenisRef.current;
+    if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
     window.scrollTo(0, 0);
-    // Let the new page mount and fonts settle before measuring.
-    const id = window.setTimeout(() => ScrollTrigger.refresh(), 80);
+    // Recalculate trigger positions once the new page has laid out.
+    const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);
     return () => window.clearTimeout(id);
   }, [pathname]);
 
