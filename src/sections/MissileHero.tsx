@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ScrollTrigger } from "../lib/gsap";
+import { gsap, ScrollTrigger } from "../lib/gsap";
 import { useReducedMotion } from "../lib/useReducedMotion";
 import { TacticalButton } from "../components/TacticalButton";
 import { BRAND, LAUNCH_SEQUENCE } from "../data/content";
@@ -52,6 +52,7 @@ const BEATS: Beat[] = [
 export function MissileHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const beatRefs = useRef<(HTMLDivElement | null)[]>([]);
   const ctaRef = useRef<HTMLDivElement>(null);
   const cueRef = useRef<HTMLDivElement>(null);
@@ -116,9 +117,13 @@ export function MissileHero() {
     };
 
     const resize = () => {
+      // Size to the sticky stage (one viewport), not the tall scroll section.
+      const stage = stickyRef.current;
+      const w = stage ? stage.clientWidth : window.innerWidth;
+      const h = stage ? stage.clientHeight : window.innerHeight;
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(section.clientWidth * dpr);
-      canvas.height = Math.round(section.clientHeight * dpr);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       draw(drawn < 0 ? 0 : drawn);
     };
 
@@ -147,9 +152,8 @@ export function MissileHero() {
 
     // ---- preload with progress -------------------------------------------
     let loaded = 0;
-    let errors = 0;
     let cancelled = false;
-    let st: ScrollTrigger | null = null;
+    let gsapCtx: gsap.Context | null = null;
 
     const onProgress = () => {
       loaded += 1;
@@ -158,6 +162,7 @@ export function MissileHero() {
     };
 
     const start = () => {
+      if (cancelled) return;
       setReady(true);
       resize();
       window.addEventListener("resize", resize);
@@ -168,24 +173,26 @@ export function MissileHero() {
         return;
       }
 
-      // Pin THIS section and scrub scroll → frame. scrub:true ties playback
-      // directly to scroll position. end = 6 viewports of scrub distance.
-      st = ScrollTrigger.create({
-        trigger: section,
-        start: "top top",
-        end: () => "+=" + window.innerHeight * 6,
-        pin: section,
-        pinSpacing: true,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onRefresh: resize,
-        onUpdate: (self) => {
-          const idx = Math.round(self.progress * (COUNT - 1));
-          render(idx);
-          updateText(self.progress);
-        },
-      });
+      // Scrub scroll → frame. NO GSAP pin: the stage is held with CSS
+      // position:sticky instead, so GSAP never reparents a React-owned node
+      // into a pin-spacer (which threw NotFoundError on navigation). The tall
+      // .mhero section (700vh) provides the scroll distance; cleanup just kills
+      // this one trigger via ctx.revert().
+      gsapCtx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: true,
+          invalidateOnRefresh: true,
+          onRefresh: resize,
+          onUpdate: (self) => {
+            const idx = Math.round(self.progress * (COUNT - 1));
+            render(idx);
+            updateText(self.progress);
+          },
+        });
+      }, section);
 
       // Created late (after preload), so recalc positions for Lenis/layout.
       ScrollTrigger.refresh();
@@ -203,10 +210,7 @@ export function MissileHero() {
         }
         onProgress();
       };
-      img.onerror = () => {
-        errors += 1;
-        onProgress();
-      };
+      img.onerror = onProgress; // never stall the loader on a single miss
       img.src = framePath(no);
     });
 
@@ -214,7 +218,7 @@ export function MissileHero() {
       cancelled = true;
       window.removeEventListener("resize", resize);
       if (raf) cancelAnimationFrame(raf);
-      st?.kill();
+      gsapCtx?.revert();
       images.forEach((img) => {
         if (img) {
           img.onload = null;
@@ -230,6 +234,7 @@ export function MissileHero() {
       className={`mhero ${reduced ? "mhero--static" : ""}`}
       aria-label="Comet Aerospace solid rocket motor launch sequence"
     >
+      <div ref={stickyRef} className="mhero__sticky">
       <canvas ref={canvasRef} className="mhero__canvas" aria-hidden />
       <div className="mhero__scrim" aria-hidden />
       <div className="mhero__vignette" aria-hidden />
@@ -305,6 +310,7 @@ export function MissileHero() {
       <div ref={cueRef} className="mhero__cue" aria-hidden>
         <span className="mono">SCROLL</span>
         <span className="mhero__cue-line" />
+      </div>
       </div>
 
       {/* reduced-motion static copy */}

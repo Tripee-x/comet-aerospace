@@ -1,15 +1,24 @@
 /* =====================================================================
    MISSILE HERO — scroll-scrub frame sequence
-   The <section> itself is pinned (trigger === pin) and GSAP adds the scroll
-   length via pinSpacing, end = +=innerHeight*6.
+   The tall section provides 700vh of scroll; the inner stage is held with
+   CSS position:sticky (NOT a GSAP pin) so no React-owned node is reparented.
+   A non-pinning ScrollTrigger scrubs the frame to scroll progress.
    ===================================================================== */
 .mhero {
   position: relative;
-  height: 100dvh;
-  overflow: hidden;
+  height: 700vh;
   background: var(--c-void);
   /* single edge margin so HUD + copy + phase bar all align to one grid */
   --hero-edge: clamp(1.5rem, 4vw, 3.25rem);
+}
+
+/* the stage that stays put for the duration of the scrub */
+.mhero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* canvas fills the viewport; cover-fit + DPR handled in JS */
@@ -263,6 +272,13 @@
 /* =====================================================================
    REDUCED-MOTION STATIC (single key frame, copy overlaid low-left)
    ===================================================================== */
+.mhero--static {
+  height: auto;
+}
+.mhero--static .mhero__sticky {
+  position: relative;
+  height: 78vh;
+}
 .mhero--static .mhero__copy,
 .mhero--static .mhero__cue,
 .mhero--static .mhero__phasebar {
